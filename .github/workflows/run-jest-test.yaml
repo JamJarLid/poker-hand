@@ -1,0 +1,40 @@
+name: Node.js CI
+
+# Trigger which git action (push, pull request)
+# in which branch(es) should start the jobs
+on:
+  push:
+    branches: [main]
+
+# Jobs to run
+jobs:
+  # Build a server to create and auto configure
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      # Only testing on Node 18 now but could have done several builds 
+      # by adding (15.x, 16.x) etc 
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    # Stolen from Github marketplace actions
+    # checkout this repo on the server
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      # Action from Github marketplace actions
+      # install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+      # If the project has a npm run build command
+      # then runs (not needed right now)
+    - run: npm run build --if-present
+      # Run whatever is specified in package.json
+      # for the script test
+    - run: npm test
