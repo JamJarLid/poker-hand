@@ -39,12 +39,22 @@ module.exports = class CompareHands {
     return this.isStraight(hand) && this.isFlush(hand);
   }
 
-  static isFourOfAKind(hand) { // TODO!
-    return 0;
+  static isFourOfAKind(hand) {
+    let [ranks, occurences] = this.rankOccurences(hand);
+    let rankOfFours = ranks[occurences.indexOf(4)];
+    if (!rankOfFours) { return 0; }
+    let score = this.rankToPoint(rankOfFours);
+    return score;
   }
 
-  static isFullHouse(hand) { // TODO!
-    return 0;
+  static isFullHouse(hand) {
+    let [ranks, occurences] = this.rankOccurences(hand);
+    if (!occurences.indexOf(3) && !occurences.indexOf(2)) { return 0 };
+    let rankOfPair = ranks[occurences.indexOf(2)];
+    let rankOfThrees = ranks[occurences.indexOf(3)];
+    let score = this.rankToPoint(rankOfPair) * 100
+      + this.rankToPoint(rankOfThrees);
+    return score;
   }
 
   static isFlush(hand) {
@@ -84,26 +94,50 @@ module.exports = class CompareHands {
     return this.rankToPoint(ranks[4]);
   }
 
-  static isThreeOfAKind(hand) { // TODO!
-    return 0;
+  static isThreeOfAKind(hand) { 
+    let [ranks, occurences] = this.rankOccurences(hand);
+    let rankOfThrees = ranks[occurences.indexOf(3)];
+    if (!rankOfThrees) { return 0; }
+    let score = this.rankToPoint(rankOfThrees);
+    return score;
   }
 
-  static isTwoPair(hand) { // TODO!
-    return 0;
+  static isTwoPair(hand) {
+    let [ranks, occurences] = this.rankOccurences(hand);
+    if (occurences.indexOf(2) === occurences.lastIndexOf(2)) { return 0 };
+    let rankOfLowestPair = ranks[occurences.indexOf(2)];
+    let rankOfHighestPair = ranks[occurences.lastIndexOf(2)];
+    let score = this.rankToPoint(rankOfLowestPair) * 100
+      + this.rankToPoint(rankOfHighestPair);
+    return score;
   }
 
-  static isOnePair(hand) { // TODO!
-    return 0;
+  static isOnePair(hand) {
+    let [ranks, occurences] = this.rankOccurences(hand);
+    let rankOfPair = ranks[occurences.indexOf(2)];
+    if (!rankOfPair) { return 0; }
+    let score = this.rankToPoint(rankOfPair);
+    return score;
   }
 
-  static isHighestCard(hand) { // TODO!
-    return 0;
+  static isHighestCard(hand) {
+    this.sortByRank(hand);
+    let rankOfCard = hand.cards[0].rank;
+    return rankOfCard;
   }
 
   // helper functions below:
 
   static rankToPoint(rank) {
     return this.ranks.indexOf(rank) + 2;
+  }
+
+  static rankOccurences(hand) {
+    let ranks = {};
+    for (let rank of hand.cards) {
+      ranks[card.rank] = (ranks[card.rank] || 0) + 1
+    }
+    return [Object.keys(ranks), Object.values(ranks)];
   }
 
   static sortByRank(hand) {
