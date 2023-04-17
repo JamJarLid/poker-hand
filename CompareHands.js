@@ -122,8 +122,8 @@ module.exports = class CompareHands {
 
   static isHighestCard(hand) {
     this.sortByRank(hand);
-    let rankOfCard = hand.cards[0].rank;
-    return rankOfCard;
+    let rankOfCard = hand.cards[4].rank;
+    return this.rankToPoint(rankOfCard);
   }
 
   // helper functions below:
