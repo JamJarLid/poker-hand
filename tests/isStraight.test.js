@@ -6,3 +6,8 @@ test('check that isStraight returns truthy if straight', () => {
   let hand = new Hand('♥9', '♦8', '♣7', '♥5', '♦6');
   expect(CompareHands.isStraight(hand)).toBeTruthy();
 });
+
+test('check that isStraight returns falsey if not a straight', () => {
+  let hand = new Hand('♣2', '♣6', '♥4', '♣8', '♣7');
+  expect(CompareHands.isStraight(hand)).toBeFalsy();
+});

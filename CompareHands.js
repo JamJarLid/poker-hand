@@ -49,9 +49,9 @@ module.exports = class CompareHands {
 
   static isFullHouse(hand) {
     let [ranks, occurences] = this.rankOccurences(hand);
-    if (!occurences.indexOf(3) && !occurences.indexOf(2)) { return 0 };
     let rankOfPair = ranks[occurences.indexOf(2)];
     let rankOfThrees = ranks[occurences.indexOf(3)];
+    if (!rankOfThrees || !rankOfPair) { return 0 };
     let score = this.rankToPoint(rankOfPair) * 100
       + this.rankToPoint(rankOfThrees);
     return score;
@@ -134,7 +134,7 @@ module.exports = class CompareHands {
 
   static rankOccurences(hand) {
     let ranks = {};
-    for (let rank of hand.cards) {
+    for (let card of hand.cards) {
       ranks[card.rank] = (ranks[card.rank] || 0) + 1
     }
     return [Object.keys(ranks), Object.values(ranks)];
@@ -146,6 +146,5 @@ module.exports = class CompareHands {
         -1 : 1;
     });
   }
-
 
 }
