@@ -12,6 +12,12 @@ test('check that isThreeOfAKind returns falsey if not three of a kind', () => {
   expect(CompareHands.isThreeOfAKind(hand)).toBeFalsy();
 });
 
+test('Check that wrong hand returns zero', () => {
+  let hand = new Hand('♣2', '♣6', '♥4', '♣8', '♣7');
+  expect(CompareHands.isThreeOfAKind(hand)).toBe(0);
+})
+
+
 test('check that isThreeOfAKind returns a higher score for a stronger hand (if two hands but with three of a kind)', () => {
   let hand1 = new Hand('♥2', '♦2', '♣8', '♠3', '♠2');
   let hand2 = new Hand('♥7', '♦7', '♣8', '♠3', '♠7');

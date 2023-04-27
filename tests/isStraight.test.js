@@ -12,6 +12,12 @@ test('check that isStraight returns falsey if not a straight', () => {
   expect(CompareHands.isStraight(hand)).toBeFalsy();
 });
 
+test('Check that wrong hand returns zero', () => {
+  let hand = new Hand('♣2', '♣6', '♥4', '♣8', '♣7');
+  expect(CompareHands.isStraight(hand)).toBe(0);
+})
+
+
 test('check that isStraight returns a higher score for a stronger hand (if two hands but with straight)', () => {
   let hand1 = new Hand('♥9', '♦8', '♣7', '♥5', '♦6');
   let hand2 = new Hand('♥A', '♦K', '♣Q', '♥J', '♦T');

@@ -11,6 +11,11 @@ test('check that isTwoPairs returns falsey if two pairs', () => {
     expect(CompareHands.isTwoPair(hand)).toBeFalsy();
 });
 
+test('Check that wrong hand returns zero', () => {
+    let hand = new Hand('♣2', '♣6', '♥4', '♣8', '♣7');
+    expect(CompareHands.isTwoPair(hand)).toBe(0);
+})
+
 test('check that isTwoPair returns a higher score for a stronger hand (if two hands but with two pair)', () => {
     let hand1 = new Hand('♥2', '♦2', '♣3', '♠3', '♠T');
     let hand2 = new Hand('♥7', '♦7', '♣3', '♠3', '♠T');

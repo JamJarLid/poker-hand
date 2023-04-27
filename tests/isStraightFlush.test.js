@@ -11,6 +11,12 @@ test('check that isStraightFlush returns falsey if not straight flush', () => {
     expect(CompareHands.isStraightFlush(hand)).toBeFalsy();
 });
 
+test('Check that wrong hand returns zero', () => {
+    let hand = new Hand('♣2', '♣6', '♥4', '♣8', '♣7');
+    expect(CompareHands.isStraightFlush(hand)).toBe(0);
+})
+
+
 test('check that isStraightFlush returns a higher score for a stronger hand (if two hands but with straight flush)', () => {
     let hand1 = new Hand('♣5', '♣6', '♣4', '♣8', '♣7');
     let hand2 = new Hand('♣A', '♣K', '♣Q', '♣J', '♣T');

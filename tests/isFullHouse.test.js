@@ -11,6 +11,12 @@ test('check that isFullHouse returns falsey if not a full house', () => {
     expect(CompareHands.isFullHouse(hand)).toBeFalsy();
 });
 
+test('Check that wrong hand returns zero', () => {
+    let hand = new Hand('♣2', '♣6', '♥4', '♣8', '♣7');
+    expect(CompareHands.isFullHouse(hand)).toBe(0);
+})
+
+
 test('check that isFullHouse returns a higher score for a stronger hand (if two hands but with full house)', () => {
     let hand1 = new Hand('♥2', '♦2', '♣3', '♠3', '♠2');
     let hand2 = new Hand('♥7', '♦7', '♣3', '♠3', '♠7');
