@@ -147,4 +147,27 @@ module.exports = class CompareHands {
     });
   }
 
+  static duplicateChecker(hand1, hand2) {
+    let hands = [hand1, hand2];
+    for (let hand of hands) {
+      for (let i = 1; i < 4; i++) {
+        for (let j = i + 1; j < 5; j++) {
+          if (hand.cards[i].suit === hand.cards[j].suit &&
+            hand.cards[i].rank === hand.cards[j].rank) {
+            return true;
+          }
+        }
+      }
+    }
+    for (let card1 of hand1.cards) {
+      for (let card2 of hand2.cards) {
+        if (card1.suit === card2.suit &&
+          card1.rank === card2.rank) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
 }
