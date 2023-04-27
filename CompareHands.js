@@ -5,8 +5,10 @@ module.exports = class CompareHands {
 
   // return the winning hand
   static comparer(hand1, hand2) {
-
-    let comparers = [
+    if (this.duplicateChecker(hand1, hand2)) {
+      return "Cheating detected, round cancelled!"
+    } else {
+      let comparers = [
       'isStraightFlush',
       'isFourOfAKind',
       'isFullHouse',
@@ -29,8 +31,8 @@ module.exports = class CompareHands {
       if (hand1Score === hand2Score) { return [hand1, hand2]; }
       else if (hand1Score > hand2Score) { return hand1; }
       else { return hand2; }
+      }
     }
-
   }
 
   static isStraightFlush(hand) {
